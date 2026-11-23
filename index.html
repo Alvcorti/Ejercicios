@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Librería de ejercicios · Firebirds SC</title>
+<meta name="description" content="Librería de ejercicios de entrenamiento de Firebirds SC: diagramas, descripciones y vídeos.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-text">
+    <div class="club"><img src="logo.png" alt="" class="logo" onerror="this.remove()"><span id="clubName">Firebirds SC</span></div>
+    <h1>Librería de ejercicios</h1>
+    <p>Diagramas de tareas listos para tus sesiones. Busca por nombre o filtra por tipo, abre la ficha con la explicación y el vídeo, y descarga el diagrama.</p>
+    <div class="stats"><div class="stat"><b id="nEx">–</b><span>ejercicios</span></div><div class="stat"><b id="nCat">–</b><span>categorías</span></div><div class="stat"><b id="nVid">–</b><span>con vídeo</span></div></div>
+  </div>
+  <div class="board" aria-hidden="true">
+    <svg viewBox="0 0 300 200">
+      <g fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.6">
+        <rect x="10" y="10" width="280" height="180" rx="2"/>
+        <line x1="150" y1="10" x2="150" y2="190"/><circle cx="150" cy="100" r="26"/>
+        <rect x="10" y="50" width="46" height="100"/><rect x="10" y="76" width="16" height="48"/>
+        <rect x="244" y="50" width="46" height="100"/><rect x="274" y="76" width="16" height="48"/>
+      </g>
+      <g stroke="#fff" stroke-width="1.6" fill="none" stroke-dasharray="4 4"><path d="M80 140 Q115 95 160 120"/><path d="M190 70 Q220 60 238 92"/></g>
+      <g fill="#fff"><circle cx="80" cy="140" r="6"/><circle cx="160" cy="120" r="6"/><circle cx="190" cy="70" r="6"/></g>
+      <g fill="none" stroke="#ff3b3b" stroke-width="2.4"><path d="M118 70l8 8m0-8l-8 8"/><path d="M212 120l8 8m0-8l-8 8"/><path d="M232 96l8 8m0-8l-8 8"/></g>
+      <g fill="#ff3b3b"><path d="M58 40l5 10h-10z"/><path d="M98 40l5 10h-10z"/><path d="M58 160l5 10h-10z"/><path d="M98 160l5 10h-10z"/></g>
+    </svg>
+  </div>
+</header>
+
+<div class="bar">
+  <input id="q" class="search" type="search" placeholder="Buscar ejercicio…" aria-label="Buscar ejercicio">
+  <div class="chips" id="chips" role="group" aria-label="Filtrar por categoría"></div>
+</div>
+
+<main>
+  <p class="count" id="count">Cargando ejercicios…</p>
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty" hidden></p>
+</main>
+
+<footer class="foot"><span id="footClub">Firebirds SC</span> · Librería de ejercicios</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbTtl">
+  <div class="lbin">
+    <div class="lbbar">
+      <div class="lbhead"><span class="cat" id="lbCat"></span><h2 class="ttl" id="lbTtl"></h2></div>
+      <a class="btn" id="lbDl" download>Descargar diagrama</a>
+      <button class="btn ghost" id="lbClose" type="button">Cerrar</button>
+    </div>
+    <img id="lbImg" alt="">
+    <div class="detail">
+      <section><h3>Descripción</h3><div id="lbDesc"></div></section>
+      <section><h3>Vídeo</h3><div id="lbVid"></div></section>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
