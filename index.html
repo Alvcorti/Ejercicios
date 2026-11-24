@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Librería de ejercicios · Firebirds SC</title>
-<meta name="description" content="Librería de ejercicios de entrenamiento de Firebirds SC: diagramas, descripciones y vídeos.">
+<title>Exercise Library · Firebirds SC</title>
+<meta name="description" content="Firebirds SC training exercise library: diagrams, descriptions and videos.">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,9 +14,9 @@
 <header class="hero">
   <div class="hero-text">
     <div class="club"><img src="logo.png" alt="" class="logo" onerror="this.remove()"><span id="clubName">Firebirds SC</span></div>
-    <h1>Librería de ejercicios</h1>
-    <p>Diagramas de tareas listos para tus sesiones. Busca por nombre o filtra por tipo, abre la ficha con la explicación y el vídeo, y descarga el diagrama.</p>
-    <div class="stats"><div class="stat"><b id="nEx">–</b><span>ejercicios</span></div><div class="stat"><b id="nCat">–</b><span>categorías</span></div><div class="stat"><b id="nVid">–</b><span>con vídeo</span></div></div>
+    <h1>Exercise Library</h1>
+    <p>Ready-to-use drills for your sessions. Search by name or filter by type, open each exercise to see the explanation and video, and download the diagram.</p>
+    <div class="stats"><div class="stat"><b id="nEx">–</b><span>exercises</span></div><div class="stat"><b id="nCat">–</b><span>categories</span></div><div class="stat"><b id="nVid">–</b><span>with video</span></div></div>
   </div>
   <div class="board" aria-hidden="true">
     <svg viewBox="0 0 300 200">
@@ -35,29 +35,29 @@
 </header>
 
 <div class="bar">
-  <input id="q" class="search" type="search" placeholder="Buscar ejercicio…" aria-label="Buscar ejercicio">
-  <div class="chips" id="chips" role="group" aria-label="Filtrar por categoría"></div>
+  <input id="q" class="search" type="search" placeholder="Search exercises…" aria-label="Search exercises">
+  <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
 </div>
 
 <main>
-  <p class="count" id="count">Cargando ejercicios…</p>
+  <p class="count" id="count">Loading exercises…</p>
   <div class="grid" id="grid"></div>
   <p class="empty" id="empty" hidden></p>
 </main>
 
-<footer class="foot"><span id="footClub">Firebirds SC</span> · Librería de ejercicios</footer>
+<footer class="foot"><span id="footClub">Firebirds SC</span> · Exercise Library</footer>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbTtl">
   <div class="lbin">
     <div class="lbbar">
       <div class="lbhead"><span class="cat" id="lbCat"></span><h2 class="ttl" id="lbTtl"></h2></div>
-      <a class="btn" id="lbDl" download>Descargar diagrama</a>
-      <button class="btn ghost" id="lbClose" type="button">Cerrar</button>
+      <a class="btn" id="lbDl" download>Download diagram</a>
+      <button class="btn ghost" id="lbClose" type="button">Close</button>
     </div>
     <img id="lbImg" alt="">
     <div class="detail">
-      <section><h3>Descripción</h3><div id="lbDesc"></div></section>
-      <section><h3>Vídeo</h3><div id="lbVid"></div></section>
+      <section><h3>Description</h3><div id="lbDesc"></div></section>
+      <section><h3>Video</h3><div id="lbVid"></div></section>
     </div>
   </div>
 </div>

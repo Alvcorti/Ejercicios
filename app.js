@@ -1,6 +1,6 @@
 {
 const CFG = window.CONFIG || {};
-const ORDER = ["Técnica","Rondo","Juego de posesión","Juego de posición","Situación","Juego","Finalización"];
+const ORDER = ["Technical","Rondo","Possession Game","Position Game","Situation Game","Game","Finishing"];
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const fold = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
@@ -32,15 +32,16 @@ function parseCSV(text) {
 function toExercises(rows) {
   const head = rows.shift().map(h => fold(h.trim()));
   const col = name => head.findIndex(h => h.startsWith(name));
-  const c = { name: col("ejercicio"), cat: col("categoria"), img: col("imagen"), desc: col("descripcion"), vid: col("video"), vis: col("visible") };
+  const col2 = (a, b) => { const k = col(a); return k >= 0 ? k : col(b); };
+  const c = { name: col2("ejercicio", "exercise"), cat: col2("categoria", "category"), img: col2("imagen", "image"), desc: col2("descripcion", "description"), vid: col("video"), vis: col("visible") };
   return rows.map((r, i) => ({
     i,
     name: (r[c.name] || "").trim(),
-    cat: (r[c.cat] || "").trim() || "Otros",
+    cat: (r[c.cat] || "").trim() || "Other",
     img: (r[c.img] || "").trim(),
     desc: (r[c.desc] || "").trim(),
     vid: (r[c.vid] || "").trim(),
-    visible: c.vis < 0 || fold((r[c.vis] || "si").trim()) !== "no"
+    visible: c.vis < 0 || fold((r[c.vis] || "yes").trim()) !== "no"
   })).filter(e => e.name && e.visible);
 }
 
@@ -64,21 +65,21 @@ function cats() {
 
 function renderChips() {
   const counts = {}; EX.forEach(e => counts[e.cat] = (counts[e.cat] || 0) + 1);
-  chips.innerHTML = [["", "Todos", EX.length]].concat(cats().map(c => [c, c, counts[c]]))
+  chips.innerHTML = [["", "All", EX.length]].concat(cats().map(c => [c, c, counts[c]]))
     .map(([v, l, n]) => `<button type="button" class="chip" data-cat="${esc(v)}" aria-pressed="${v === cat}">${esc(l)}<small>${n}</small></button>`).join("");
 }
 
 function render() {
   const t = fold(q.value.trim());
   const list = EX.filter(e => (!cat || e.cat === cat) && (!t || fold(e.name + " " + e.cat + " " + e.desc).includes(t)));
-  $("count").textContent = list.length + (list.length === 1 ? " ejercicio" : " ejercicios");
+  $("count").textContent = list.length + (list.length === 1 ? " exercise" : " exercises");
   $("empty").hidden = list.length > 0;
-  $("empty").textContent = "No hay ejercicios que coincidan.";
+  $("empty").textContent = "No exercises match your search.";
   grid.innerHTML = list.map(e => `<article class="card">
-    <button type="button" class="thumb" data-view="${e.i}" aria-label="Ver ${esc(e.name)}">${imgSrc(e) ? `<img src="${esc(imgSrc(e))}" alt="${esc(e.name)}" loading="lazy">` : ""}</button>
+    <button type="button" class="thumb" data-view="${e.i}" aria-label="View ${esc(e.name)}">${imgSrc(e) ? `<img src="${esc(imgSrc(e))}" alt="${esc(e.name)}" loading="lazy">` : ""}</button>
     <div class="info"><h3 class="ttl">${esc(e.name)}</h3>
-      <div class="tags"><span class="cat">${esc(e.cat)}</span>${e.vid ? '<span class="badge">▶ Vídeo</span>' : ""}</div>
-      <div class="acts"><button type="button" class="btn ghost" data-view="${e.i}">Ver</button>${imgSrc(e) ? `<a class="btn" href="${esc(imgSrc(e))}" download="${esc(e.img.split("/").pop())}">Descargar</a>` : ""}</div>
+      <div class="tags"><span class="cat">${esc(e.cat)}</span>${e.vid ? '<span class="badge">▶ Video</span>' : ""}</div>
+      <div class="acts"><button type="button" class="btn ghost" data-view="${e.i}">View</button>${imgSrc(e) ? `<a class="btn" href="${esc(imgSrc(e))}" download="${esc(e.img.split("/").pop())}">Download</a>` : ""}</div>
     </div></article>`).join("");
 }
 
@@ -87,12 +88,12 @@ function openLb(e) {
   const src = imgSrc(e);
   $("lbImg").src = src; $("lbImg").alt = e.name; $("lbImg").hidden = !src;
   const dl = $("lbDl"); dl.hidden = !src; dl.href = src; dl.setAttribute("download", e.img.split("/").pop());
-  $("lbDesc").innerHTML = e.desc ? `<p class="desc">${esc(e.desc)}</p>` : `<p class="muted">Todavía no hay descripción para este ejercicio.</p>`;
+  $("lbDesc").innerHTML = e.desc ? `<p class="desc">${esc(e.desc)}</p>` : `<p class="muted">No description yet for this exercise.</p>`;
   const v = e.vid ? embed(e.vid) : null;
-  let h = `<p class="muted">Todavía no hay vídeo para este ejercicio.</p>`;
-  if (v && v.type === "iframe") h = `<div class="video"><iframe src="${esc(v.src)}" title="Vídeo: ${esc(e.name)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div><p class="vlink"><a href="${esc(e.vid)}" target="_blank" rel="noopener">Abrir el vídeo en otra pestaña ↗</a></p>`;
+  let h = `<p class="muted">No video yet for this exercise.</p>`;
+  if (v && v.type === "iframe") h = `<div class="video"><iframe src="${esc(v.src)}" title="Video: ${esc(e.name)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div><p class="vlink"><a href="${esc(e.vid)}" target="_blank" rel="noopener">Open video in a new tab ↗</a></p>`;
   else if (v && v.type === "video") h = `<div class="video"><video controls preload="metadata" playsinline src="${esc(v.src)}"></video></div>`;
-  else if (v) h = `<a class="btn" href="${esc(v.src)}" target="_blank" rel="noopener">Ver vídeo ↗</a>`;
+  else if (v) h = `<a class="btn" href="${esc(v.src)}" target="_blank" rel="noopener">Watch video ↗</a>`;
   $("lbVid").innerHTML = h;
   lb.classList.add("open"); lb.scrollTop = 0; document.body.style.overflow = "hidden"; $("lbClose").focus();
   history.replaceState(null, "", "#" + encodeURIComponent(e.img.replace(/\.[a-z]+$/i, "") || e.i));
@@ -124,7 +125,7 @@ function load() {
   }).catch(() => {
     $("count").textContent = "";
     $("empty").hidden = false;
-    $("empty").textContent = "No se pudo cargar la librería. Revisa tu conexión y recarga la página.";
+    $("empty").textContent = "Couldn't load the library. Check your connection and reload the page.";
   });
 }
 load();

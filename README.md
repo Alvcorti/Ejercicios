@@ -9,11 +9,11 @@ Todo se hace en la hoja **Firebirds – Librería de ejercicios**, en la pestañ
 | Columna | Qué poner |
 |---|---|
 | Ejercicio | Nombre que se ve en la web |
-| Categoría | Técnica, Rondo, Juego de posesión, Juego de posición, Situación, Juego o Finalización |
+| Categoría | Technical, Rondo, Possession Game, Position Game, Situation Game, Game o Finishing |
 | Imagen | Nombre del archivo de la imagen subida al repositorio (por ejemplo `double-area.jpg`) |
 | Descripción | Texto libre. Los saltos de línea se respetan |
 | Vídeo (link) | Link de YouTube (puede ser "no listado") o de Google Drive |
-| Visible | `Sí` para mostrarlo, `No` para ocultarlo sin borrarlo |
+| Visible | `Sí` (o `Yes`) para mostrarlo, `No` para ocultarlo sin borrarlo |
 
 Los cambios salen en la web al recargar la página.
 
